@@ -1,5 +1,6 @@
 import os
 import sys
+import numpy as np
 from dataclasses import dataclass
 from catboost import CatBoostRegressor
 from sklearn.ensemble import (
@@ -8,13 +9,16 @@ from sklearn.ensemble import (
     GradientBoostingRegressor
 )
 from sklearn.linear_model import LinearRegression
-from sklearn.metrics import r2_score
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.tree import DecisionTreeRegressor
 from xgboost import XGBRegressor
 from src.dsProject.logger import logging
 from src.dsProject.exceptions import CustomException
 from src.dsProject.utils import save_object, evaluate_models
+import mlflow
+import mlflow.sklearn
+from urllib.parse import urlparse
 
 @dataclass
 class Model_Trainer_Config:
@@ -23,6 +27,13 @@ class Model_Trainer_Config:
 class Model_Trainer:
     def __init__(self):
         self.model_trainer_config = Model_Trainer_Config()
+
+    def eval_metrics(self,true,predicted):
+        rmse = np.sqrt(mean_squared_error(true,predicted))
+        mae = mean_absolute_error(true,predicted)
+        r2 = r2_score(true,predicted)
+
+        return rmse,mae,r2
 
     def initiate_model_trainer(self, train_array, test_array):
         try:
@@ -86,6 +97,37 @@ class Model_Trainer:
                 list(model_report.values()).index(best_model_score)
             ]
             best_model = models[best_model_name]
+
+            print("The best model is: " + best_model_name)
+            model_names = list(params.keys())
+            actual_model = ""
+
+            for model in model_names:
+                if model == best_model_name:
+                    actual_model = actual_model + model
+
+            best_params = params[actual_model]
+
+            mlflow.set_registry_uri("https://dagshub.com/prathameshj27/DataScience_Project.mlflow")
+            tracking_uri_type_store = urlparse(mlflow.get_tracking_uri()).scheme
+
+
+            ##MLflow
+
+            with mlflow.start_run():
+                predicted_qualities = best_model.predict(X_test)
+                (rmse,mae,r2) = self.eval_metrics(y_test,predicted_qualities)
+
+                mlflow.log_params(best_params)
+                mlflow.log_metric("rmse", rmse)
+                mlflow.log_metric("mae", mae)
+                mlflow.log_metric("r2",r2)
+
+            # Model registry does not work with file store
+            if tracking_uri_type_store != "file":
+                mlflow.sklearn.log_model(best_model,"sklearn-model", registered_model_name=actual_model)
+            else:
+                mlflow.sklearn.log_model(best_model, "sklearn-model")
 
             if best_model_score < 0.6:
                 raise CustomException("No best model found")
