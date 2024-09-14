@@ -52,7 +52,8 @@ class Model_Trainer:
                 "Gradient Boosting" : GradientBoostingRegressor(),
                 "Liner Regression" : LinearRegression(),
                 "Decision Tree" : DecisionTreeRegressor(),
-                "XGBRegressor" : XGBRegressor()
+                "XGBRegressor" : XGBRegressor(),
+                "K Neighbors Regressor" : KNeighborsRegressor()
             }
 
             params = {
@@ -88,6 +89,11 @@ class Model_Trainer:
                     'learning_rate' : [.1,.01,.05,.001],
                     'loss' : ['linear','square','exponential'],
                     'n_estimators' : [8,16,32,64,128,256]
+                },
+                "K Neighbors Regressor" : {
+                    'n_neighbors' : [5,7,9,11,13,15],
+                    'weights' : ['uniform','distance'],
+                    'metric' : ['minkowski','euclidean','manhattan']
                 }
             }
 
@@ -103,7 +109,7 @@ class Model_Trainer:
             actual_model = ""
 
             for model in model_names:
-                if model == best_model_name:
+                if best_model_name == model:
                     actual_model = actual_model + model
 
             best_params = params[actual_model]
