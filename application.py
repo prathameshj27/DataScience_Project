@@ -4,7 +4,9 @@ import pandas as pd
 from sklearn.preprocessing import StandardScaler
 from src.dsProject.pipelines.prediction_pipeline import CustomData, Predict_Pipeline
 
-app = Flask(__name__)
+application = Flask(__name__)
+
+app=application
 
 @app.route("/")
 def index():
@@ -34,4 +36,4 @@ def predict_datapoint():
 
     
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0")
