@@ -1,0 +1,15 @@
+artifact_uri: file:///G:/Projects/Data%20Science%20Project/mlruns/0/0d8866b5898347e6abe00c7e804736f2/artifacts
+end_time: 1727413071747
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 0d8866b5898347e6abe00c7e804736f2
+run_name: angry-moth-187
+run_uuid: 0d8866b5898347e6abe00c7e804736f2
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1727412921161
+status: 3
+tags: []
+user_id: root
