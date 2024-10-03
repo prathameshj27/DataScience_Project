@@ -10,13 +10,16 @@ application = Flask(__name__)
 
 @application.route("/")
 def index():
+    print("Index Page")
     return render_template("index.html")
 
 @application.route("/predictdata", methods=["GET","POST"])
 def predict_datapoint():
     if request.method == "GET":
+        print("inside get request of predict data")
         return render_template("home.html")
     else:
+        print("Inside post request of predictdata")
         data = CustomData(
             gender = request.form.get("gender"),
             race_ethnicity = request.form.get("ethnicity"),
@@ -27,6 +30,7 @@ def predict_datapoint():
             reading_score = float(request.form.get("reading_score"))            
         )
         
+        print(data)
         pred_df = data.get_data_as_dataframe()
         print("Form input data:\n",pred_df)
         predict_pipeline = Predict_Pipeline()
@@ -36,4 +40,4 @@ def predict_datapoint():
 
     
 if __name__ == "__main__":
-    application.run(host='0.0.0.0')
+    application.run(host='0.0.0.0', debug=True)

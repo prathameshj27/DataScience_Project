@@ -73,8 +73,11 @@ def evaluate_models(X_train,y_train,X_test,y_test,models,params):
     
 def load_object(file_path):
     try:
+        print("inside load_object function of utils and file path is ", file_path)
         with open(file_path, "rb") as file_obj:
+            print("Inside open file path")
             return pickle.load(file_obj)
             
     except Exception as e:
+        print("error inside load object",e)
         raise CustomException(e,sys)
