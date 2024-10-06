@@ -1,0 +1,15 @@
+artifact_uri: file:///G:/Projects/Data%20Science%20Project/mlruns/0/db1b7bd3e8dc4510a0ca18421afa75db/artifacts
+end_time: 1728237201218
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: db1b7bd3e8dc4510a0ca18421afa75db
+run_name: luminous-mule-48
+run_uuid: db1b7bd3e8dc4510a0ca18421afa75db
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1728237140255
+status: 3
+tags: []
+user_id: root

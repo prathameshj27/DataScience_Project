@@ -1,0 +1,15 @@
+artifact_uri: file:///G:/Projects/Data%20Science%20Project/mlruns/0/b4ca534a1fa542cbaa533b4506a53f11/artifacts
+end_time: 1728237140246
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: b4ca534a1fa542cbaa533b4506a53f11
+run_name: serious-ram-429
+run_uuid: b4ca534a1fa542cbaa533b4506a53f11
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1728237139954
+status: 3
+tags: []
+user_id: root
