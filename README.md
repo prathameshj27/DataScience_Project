@@ -17,7 +17,7 @@ Future work
 Contributing
 
 ## Project Structure
-
+```
 Data Science Project/
 │
 ├── Artifacts/
@@ -55,6 +55,7 @@ Data Science Project/
 ├── README.md           # Project documentation
 ├── setup.py            # Setup file for packages creation
 ├── template.py         # template file for project folder structure creation
+```
 
 ## Technologies Used
 
